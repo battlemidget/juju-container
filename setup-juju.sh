@@ -1,14 +1,16 @@
 #!/bin/bash
 
-# This script is meant to run on a new LXC image to install and configure Juju.
+# This script runs on the LXC image to install and configure Juju.
 
 set -ex
 
+# Sleep a few seconds to let the networking come up.
 sleep 3
 apt-get update -qq --fix-missing
+# Install tools like add-apt-repository
 apt-get install -qy software-properties-common
 apt-add-repository -y ppa:juju/devel
-# stable ppa is required for charm-tools
+# The stable ppa is required for charm-tools
 apt-add-repository -y ppa:juju/stable
 apt-get update -qq --fix-missing
 
@@ -16,10 +18,10 @@ apt-get -qy install juju-core2
 apt-get -qy install byobu vim charm-tools openssh-client
 apt-get -qy install virtualenvwrapper python-dev cython git
 
-# Ubuntu user is already added to the LXC images.
+# Ubuntu user exists in the LXC images, no need to create the user.
 
 HOME=/home/ubuntu
-
+# Set up the Juju environment variables for the Ubuntu user.
 RC=${HOME}/.bashrc
 echo "export JUJU_HOME=${HOME}/.juju" >> $RC
 echo "export JUJU_REPOSITORY=${HOME}" >> $RC

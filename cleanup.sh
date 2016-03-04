@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Clean up the system by removing artifacts from the build process.
+# This script runs on the LXC image to remove the build artifacts.
 
 set -ex
 
