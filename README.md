@@ -44,7 +44,11 @@ To build your own Juju container run the build script, then you are
 able to use the container.
 
 ```bash
-build.sh
+./build.sh
+```
+or
+```bash
+make build
 ```
 
 Now that the container is build and running, you can get a shell inside it
@@ -52,4 +56,8 @@ with:
 
 ```bash
 lxc exec juju-container -- /bin/bash -c 'cd /home/ubuntu/ && su ubuntu'
+```
+or
+```bash
+make bash
 ```
