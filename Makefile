@@ -1,6 +1,15 @@
 build:
-	echo Build hash is $(shell git rev-parse HEAD) > build_output.txt
+	# Build a container the same release as the host.
+	echo "Build hash is $(shell git rev-parse HEAD)" > build_output.txt
 	./build.sh 2>&1 | tee -a build_output.txt
+
+trusty:
+	echo "Building trusty $(shell git rev-parse HEAD)" > build_output.txt
+	./build.sh trusty 2>&1 | tee -a build_output.txt
+
+xenial:
+	echo "Building xenial $(shell git rev-parse HEAD)" > build_output.txt
+	./build.sh xenial 2>&1 | tee -a build_output.txt
 
 publish:
 	lxc stop juju-container || true
