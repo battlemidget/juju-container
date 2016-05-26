@@ -22,7 +22,4 @@ bash:
 	lxc exec juju-container -- /bin/bash -c 'cd /home/ubuntu/ && su ubuntu'
 
 clean:
-	lxc stop juju-container || true
-	lxc delete juju-container || true
-	lxc remote remove linuxcontainers || true
-	rm -f build_output.txt
+	./clean.sh
