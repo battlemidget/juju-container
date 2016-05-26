@@ -19,8 +19,16 @@ apt-get install -qy software-properties-common
 apt-add-repository -y ppa:juju/stable
 apt-get update -qq --fix-missing
 
-INSTALL_PACKAGES=(juju-core charm-tools byobu vim tree openssh-client \
-  virtualenvwrapper python-dev cython git)
+INSTALL_PACKAGES=(juju-core \
+  byobu \
+  charm-tools \
+  cython \
+  git \
+  openssh-client \
+  python-dev \
+  tree \
+  vim \
+  virtualenvwrapper)
 
 apt-get -qy install ${INSTALL_PACKAGES[*]}
 
@@ -33,6 +41,8 @@ echo "export JUJU_HOME=${HOME}/.juju" >> $RC
 echo "export JUJU_REPOSITORY=${HOME}/charms" >> $RC
 JUJU_VERSION=$(juju-1 version)
 echo "echo 'welcome to $JUJU_VERSION'" >> $RC
+# Create the JUJU_HOME directory for the configuration files.
+mkdir -p ${HOME}/.juju
 # Create the Juju charm directories so they can be mounted in other steps.
 mkdir -p ${HOME}/charms
 mkdir ${HOME}/charms/precise
@@ -42,9 +52,9 @@ mkdir ${HOME}/charms/xenial
 chown -R ${USER}:${USER} ${HOME}
 
 # Remove uneeded packages.
-REMOVE_PACKAGES=(cython gcc git perl)
+REMOVE_PACKAGES=(cython gcc git)
 
-apt-get remove -qy ${REMOVE_PACKAGES}
+apt-get remove -qy ${REMOVE_PACKAGES[*]}
 
 apt-get autoremove -qy
 apt-get autoclean -qy
